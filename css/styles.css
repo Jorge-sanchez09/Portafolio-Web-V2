@@ -23,7 +23,7 @@
 }
 
 :root{
-    --clr-primary: hsl(214, 92%, 38%);   /*Color primario, con este color resaltamos lo importante*/
+    --clr-primary: hsl(214, 92%, 38%);  
     --clr-primary-500: hsl(214, 92%, 28%);
 
     --clr-neutral-600:  hsl(0, 0%, 20%);
@@ -39,12 +39,8 @@
     --fw-light: 300;
     --fw-bold: 700;
     --fw-black: 900;
-    --content-width: 1500px;    /*Tamaño de los contenedores, para que todo el contenido de la pagina abarque hasta cierto punto*/
+    --content-width: 1500px;    
     --scroll-padding: 0;
-
-    --skill-bar-length: 0%; /*Tamaño de la barra de skills*/
-    --circular-bar: 0deg;
-
     --transition-delay: 0ms;
 }
 
@@ -72,7 +68,6 @@ body {
     z-index: 10;
 }
 
-/* Este elemento tiene como hijos directos el div con el toggle (menu desplegable) y la barra de navegación. Al ser mobile-first el navbar está oculto por lo que la columna del toggle abarcará todo el espacio */
 .header-wrapper{
     display: flex;
     flex-direction: column;
@@ -533,160 +528,41 @@ h1, .hero__subtitle{
     color: var(--clr-primary);
 }
 
-.skills-languages{
+.skills__list{
     display: grid;
-    gap: 15px 30px;
-    margin-bottom: 50px;
-}
-
-.skills-software{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 25px;
-}
-
-.skills * {
-    margin: 0;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    gap: 1em;
 }
 
 .skills__item{
     display: grid;
     gap: 10px;
-}
-
-.skills__item--language{
-    grid-template-columns: auto 1fr;
-}
-
-.skills__item--software{
     justify-items: center;
-}
-
-.skills__icon{
-    font-size: 50px;
-}
-
-.skills__icon--language{
-    align-self: end;
-}
-
-.skills__icon--software{
-    position: absolute;
-    display: grid;
-    place-items: center;
-    font-size: 75px;
-}
-
-.skills__icon--software img{
-   width: 75px;
-}
-
-.skills__info{
-    display: grid;
-}
-
-.skills__tech{
-    order: 10;
-    font-size: 1.25rem;
-    margin-top: 10px;
-}
-
-.skills__tech--software{
-    order: 0;
-}
-
-.skills__level{
-    display: grid;
-    justify-items: center;
-    justify-content: start;
-}
-
-.skills__level span{
-    display: inline-block;
-    padding: 0.5em;
-    background-color: hsl(0, 0%, 0%);
-}
-
-.skills__level:after{
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
-    background-color: hsl(0, 0%, 0%);
-}
-
-.skills__level--basic{
-    margin-left: calc(var(--skill-bar-length) - 33px);
-}
-
-.skills__level--intermediate{
-    margin-left: calc(var(--skill-bar-length) - 49px);
-}
-
-.skills__level--advanced{
-    margin-left: calc(var(--skill-bar-length) - 45px);
-}
-
-.skills__bar{
-    height: 20px;
-    border-radius: 0.5em;
-    background-color: hsl(0, 0%, 0%);
-    overflow: hidden;
-}
-
-.skills__bar-fill{
-    width: var(--skill-bar-length);
-    height: 100%;
-    background-color: var(--clr-primary);
-    transform: translateX(-100%);
-}
-
-.skills__bar-fill--animate{
-    animation: skill-bar-fill 1s linear forwards;
-}
-
-.skills__circular-bar{
-    position: relative;
-    place-items: center;
-    display: grid;
-    width: 150px;
+    align-items: center;
     height: 150px;
-    border-radius: 50%;
-    padding: 0.75em;
-    background: conic-gradient(var(--clr-primary) 0deg, black 0deg);
+    padding: 0.5em;
+    border-radius: 1em;
+    text-align: center;
 }
 
-.skills__circular-bar::before{
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: var(--clr-neutral-800);
+@media screen and (min-width: 500px){
+    .skills__item:nth-child(3n + 1){
+        grid-column: 1;
+    }
+    .skills__item:nth-child(3n + 2){
+        grid-column: 2;
+    }
+    .skills__item:nth-child(3n + 3){
+        grid-column: 3;
+    }
 }
 
-.skills__progress--80{
-    --skill-bar-length: 80%;
+.skills__item * {
+    margin: 0;
 }
-.skills__progress--70{
-    --skill-bar-length: 70%;
-}
-.skills__progress--75{
-    --skill-bar-length: 75%;
-}
-.skills__progress--60{
-    --skill-bar-length: 60%;
-}
-.skills__progress--50{
-    --skill-bar-length: 50%;
-}
-.skills__progress--30{
-    --skill-bar-length: 30%;
-}
-.skills__progress--25{
-    --skill-bar-length: 25%;
+
+.skills__item p{
+    align-self: flex-end;
 }
 
 .contact{
@@ -810,15 +686,8 @@ textarea.contact__input{
     }
 }
 
-@keyframes skill-bar-fill {
-    to{
-        transform: translateX(0);
-    }
-}
-
 
 @media screen and (min-width: 650px) {
-     /* Al estar en una pantalla mas grande, el bg-color se lo damos al header ya que si se lo damos an mobile-first el color se queda en el espacio del menu y se ve raro, y una vez que la pantalla ya es mas grande para tener los links y el logo en la misma fila ya se lo asignamos o si no el bg-color solo lo tendria el logo*/
      .header{
         background-color: var(--clr-neutral-800);
     }
@@ -826,21 +695,21 @@ textarea.contact__input{
     .toggle-menu{
         padding: 0 2em;
     }
-    /* Hacemos que el menu ahora tenga flex-direction: row y no esté desplazado*/
+
     .menu-list{
         position: initial;
         flex-direction: row;
         padding-right: 2em;
         transform: translateY(0);
-        background-color: initial;  /* Ya que como el menu en sí tenía un color diferente del header, al pasar a escritorio tenemos que hacer que tenga todo un solo color, asi que con initial se lo quitamos*/
+        background-color: initial; 
     }
 
     .toggle-button{
-        display: none;  /* Ocultamos el boton de toggle*/
+        display: none;  
     }
 
     .header-wrapper{
-        max-width: var(--content-width);    /*Tamaño para el contenido del header*/
+        max-width: var(--content-width); 
         margin-left: auto;
         margin-right: auto;
         flex-direction: row;

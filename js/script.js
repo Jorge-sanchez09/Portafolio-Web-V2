@@ -7,12 +7,6 @@ const navigationHeight = document.getElementById('nav-bar').offsetHeight;
 const projectsDiv = document.getElementById('projects-container');
 const projects = document.querySelectorAll('.project');
 
-// Barras de skills
-const skillsBars = document.querySelectorAll('.skills__bar-fill')
-
-// Barras circulares 
-const circularProgress = document.querySelectorAll('.skills__circular-bar');
-
 // Formulario
 const form = document.getElementById('form-contact');
 const emailObj = {
@@ -96,31 +90,6 @@ function cleanMessage(container){
 }
 
 
-// Animaciones de las barras circulares
-let filled = false;
-function circularBarAnimation(){
-    if(!filled){
-        circularProgress.forEach(bar => {
-            const circularProgressValue = getComputedStyle(bar).getPropertyValue('--skill-bar-length').replace('%', ''); 
-    
-            let circularBarStartValue = 0, 
-            circularBarSpeed = 30;
-        
-            let circularBarProgress = setInterval(() => {
-                circularBarStartValue++;
-        
-                bar.style.background = ` conic-gradient(var(--clr-primary) ${circularBarStartValue}%, black 0deg)`;
-        
-                if(circularBarStartValue >= circularProgressValue){
-                    clearInterval(circularBarProgress);
-                    filled = true;
-                }
-        
-            }, circularBarSpeed);
-        })    
-    }     
-}
-
 // IntersectionObserver para las animaciones de los elementos cuando están visibles en el viewport
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -130,10 +99,6 @@ const observer = new IntersectionObserver(entries => {
                 element.classList.add('fade--left-show');
             else if(element.classList.contains('fade--right'))
                 element.classList.add('fade--right-show');
-            else if(element.classList.contains('skills__bar-fill'))
-                element.classList.add('skills__bar-fill--animate');
-            else if(element.classList.contains('skills__circular-bar'))
-                circularBarAnimation(element);
         }
     });
 });
@@ -158,5 +123,3 @@ const fadeRightElements = document.querySelectorAll('.fade--right');
 fadeLeftElements.forEach(element => observer.observe(element));
 fadeRightElements.forEach(element => observer.observe(element));
 projects.forEach(element => projectsObserver.observe(element));
-skillsBars.forEach(element => observer.observe(element));
-circularProgress.forEach(element => observer.observe(element));
