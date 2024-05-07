@@ -9,12 +9,6 @@ const projects = document.querySelectorAll('.project');
 
 // Formulario
 const form = document.getElementById('form-contact');
-const emailObj = {
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-}
 
 document.documentElement.style.setProperty('--scroll-padding', navigationHeight + "px");
 
@@ -45,39 +39,44 @@ function validateForm(e){
     
     const formFields = [name, email, subject, message];
     let inputContainer;
+    let validForm = true;
 
     formFields.forEach(field => {
-        emailObj[field.name] = '';
-
         field.value = field.value.trim();
         inputContainer = field.parentElement;
 
         if(field.value === '') {
             showMessage('El campo no puede estar vacío', inputContainer);
+            validForm = false;
             return; 
         }
         else if(field.name === 'email' && !validateEmail(field.value)){
             showMessage('Correo no válido', inputContainer);
+            validForm = false;
             return;
         }
 
         cleanMessage(inputContainer);
-        
-        emailObj[field.name] = field.value;     
     });
+
+    if(validForm){
+        form.submit();
+        form.reset();
+        showMessage('Enviando correo...', document.getElementById('message').parentElement, "success");
+    }
 }
 
 function validateEmail(email){
-    const regex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/  // Expresion regular para validar el email
-    const resultado = regex.test(email);    // true o false dependiendo de si cumple con la expresion regular
+    const regex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/  
+    const resultado = regex.test(email);  
     return resultado;   
 }
 
-function showMessage(message, container){
-     cleanMessage(container);
-     const messageElement = document.createElement('p');
-     messageElement.textContent = message;
-     messageElement.className = 'error';
+function showMessage(message, container, type="error"){
+    cleanMessage(container);
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message;
+    messageElement.className = type == 'error' ? 'message error' : 'message success';
     
     container.append(messageElement);
 }

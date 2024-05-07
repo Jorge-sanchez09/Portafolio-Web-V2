@@ -588,12 +588,19 @@ h1, .hero__subtitle{
     font-size: 1.25rem;
 }
 
-.error{
+.message{
     padding: 0.25em;
     text-align: center;
     font-size: 1.15rem;
-    font-weight: var(--fw-light);
+    color: var(--clr-neutral-100);
+}
+
+.error{
     background-color: hsl(4, 99%, 28%);
+}
+
+.success{
+    background-color: hsl(130, 99%, 28%);
 }
 
 .contact__form *{
